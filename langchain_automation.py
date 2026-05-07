@@ -26,12 +26,14 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 # Initialize OpenAI LLM with extended thinking
 # Note: Use latest available model (gpt-4o or o1-preview for thinking capability)
-llm = ChatOpenAI(
-    model="gpt-4o",
-    api_key=OPENAI_API_KEY,
-    temperature=1,  # Required for extended thinking (o1/o3 models)
-)
+from langchain_openai import ChatOpenAI
 
+llm = ChatOpenAI(
+    model="gpt-4o",  # Use OpenRouter model name
+    api_key=os.getenv("OPENROUTER_API_KEY"),
+    base_url="https://openrouter.ai/api/v1",  # Add this line
+    temperature=1
+)
 # Extended thinking LLM (for deeper analysis)
 llm_thinking = ChatOpenAI(
     model="o1-preview",  # or o3 when available - these have extended thinking
